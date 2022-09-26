@@ -13,14 +13,14 @@ $$ \tau \dot{\boldsymbol{x}} = -\boldsymbol{x}+W\boldsymbol{r}+\mathrm{Input}$$
 
 $$ \boldsymbol{r} = \frac{1}{1+e^{-\boldsymbol{x}}}$$  
 
-## **Algorithm** Evolutionary Algorithm
+## **Algorithm**: Evolutionary Algorithm
 **Hyperparameters**: neuron time constant $\tau$, baseline input of each neuron $baselineInput$, number of neurons in the network $Nneuron$, number of parents $Nparent$, number of children $Nchildren$, number of steps for initiation $initiationSteps$, clipped value for weights $weightsClip$, number of steps for network warm-up $warmupSteps$, number of steps for network updating $updateSteps$  
 
 **for** $g=1,2,...,G$ generations:  
 &emsp; **if** $g==1$:  
-&emsp;&emsp; $P^1 = \phi(Nparent)$ {initialize random weights in parants}  
+&emsp;&emsp; $P^1 = \Phi(Nparent)$ {initialize random weights in parants}  
 &emsp; **end if**  
-&emsp; $C^g = P^g + noise$  
+&emsp; $C^g = \Lambda(P^g + noise)$  
 &emsp; $C^g_{Nchildren+1,...,Nchildren+Nparent} = P^g$  
 &emsp;Evaluate $F_i = F(C^g_i)$  
 &emsp;Sort $C^g_i$ with descending order by $F_i$  
@@ -56,7 +56,7 @@ $totalReward=0$
 &emsp;&emsp; $\tau \dot{\boldsymbol{x}} = -\boldsymbol{x}+W\boldsymbol{r}+\mathrm{baselineInput} + \frac{obs_t-obsMean}{obsStd}$  
 &emsp;&emsp; $\boldsymbol{r} = \frac{1}{1+e^{-\boldsymbol{x}}}$  
 &emsp; **end for**  
-&emsp; $act_t=\psi(r)$  
+&emsp; $act_t=\Psi(r)$  
 &emsp; $obs_{t+1}, reward_t, done = step(env,action)$  
 &emsp; $totalReward = totalReward+reward_t$  
 **end while**  
