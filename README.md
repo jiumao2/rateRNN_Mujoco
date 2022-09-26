@@ -6,47 +6,47 @@
 - Work well on making periodic movement such as "Inverted Pendulum", "Swimmer", "Hopper", "Ant", "Half Cheetah" and "Walker2D". Work bad on controlling problems such as "Reacher", "Inverted Double Pendulum" and "Humanoid".
 ## Neuron model
 ![](doc/rateRNN.jpg)
-$$ \tau \dot{\boldsymbol{x}} = -\boldsymbol{x}+W\boldsymbol{r}+\mathrm{Input} \\ 
-\boldsymbol{r} = \frac{1}{1+e^{-\boldsymbol{x}}}$$
+$$ \tau \dot{\boldsymbol{x}} = -\boldsymbol{x}+W\boldsymbol{r}+\mathrm{Input}$$  
+$$ \boldsymbol{r} = \frac{1}{1+e^{-\boldsymbol{x}}}$$
 
 ## Algorithm
 for $g=1,2,...,G$ generations:  
 &emsp; if $g==1$:  
-&emsp;&emsp; $P^1 = \phi(N\_parent)$ {initialize random weights in parants}  
+&emsp;&emsp; $P^1 = \phi(Nparent)$ {initialize random weights in parants}  
 &emsp; $C^g = P^g + noise$  
-&emsp; $C^g_{N\_children+1,...,N\_children+N\_parent} = P^g$  
+&emsp; $C^g_{Nchildren+1,...,Nchildren+Nparent} = P^g$  
 &emsp;Evaluate $F_i = F(C^g_i)$  
 &emsp;Sort $C^g_i$ with descending order by $F_i$  
-&emsp;Set $P^{g+1}=C^g_{1,2,...,N\_parent}$  
+&emsp;Set $P^{g+1}=C^g_{1,2,...,Nparent}$  
 
 ### Initialization:
 Set a new environment $env$  
-for $t=1,2,...,initiation\_length$:  
+for $t=1,2,...,initiationLength$:  
 &emsp; if $t==1$:  
 &emsp;&emsp; Reset the environment $obs_1 = Reset(env)$  
 &emsp; Choose a random action $act_t$  
 &emsp; $obs_{t+1}=step(env,act_t)$
 
-$obs\_mean = mean(obs)$  
-$obs\_std = std(obs)$  
+$obsMean = mean(obs)$  
+$obsStd = std(obs)$  
 
 ### Evaluation function $F$:  
 Set a new environment $env$  
 Set new random network state $x$  
-$total\_reward=0$  
-for $step=1,2,...,warmup\_steps$:  
-&emsp; $\tau \dot{\boldsymbol{x}} = -\boldsymbol{x}+W\boldsymbol{r}+\mathrm{baseline\_input}$  
+$totalReward=0$  
+for $step=1,2,...,warmupSsteps$:  
+&emsp; $\tau \dot{\boldsymbol{x}} = -\boldsymbol{x}+W\boldsymbol{r}+\mathrm{baselineInput}$  
 &emsp; $\boldsymbol{r} = \frac{1}{1+e^{-\boldsymbol{x}}}$  
 while not $done$:  
 &emsp; if $t==1$:  
 &emsp;&emsp; Reset the environment $obs_1 = Reset(env)$  
-&emsp; for $step=1,2,...,update\_steps$:  
-&emsp;&emsp; $\tau \dot{\boldsymbol{x}} = -\boldsymbol{x}+W\boldsymbol{r}+\mathrm{baseline\_input} + \frac{obs_t-obs\_mean}{obs\_std}$  
+&emsp; for $step=1,2,...,updateSteps$:  
+&emsp;&emsp; $\tau \dot{\boldsymbol{x}} = -\boldsymbol{x}+W\boldsymbol{r}+\mathrm{baselineInput} + \frac{obs_t-obsMean}{obsStd}$  
 &emsp;&emsp; $\boldsymbol{r} = \frac{1}{1+e^{-\boldsymbol{x}}}$  
 &emsp; $act_t=\psi(r)$  
 &emsp; $obs_{t+1}, reward_t, done = step(env,action)$  
-&emsp; $total\_reward = total\_reward+reward_t$  
-return $total\_reward$
+&emsp; $totalReward = totalReward+reward_t$  
+return $totalReward$
 
 
 ## parameters
@@ -55,12 +55,12 @@ return $total\_reward$
 | Name | Value |
 | ------ | ------ |
 | $\tau$ | 0.01 |
-| baseline_input | 0.2 |
-| $N_{neuron}$ | 30 |
-| $N_{parent}$ | 16 |
-| $N_{children}$ | 256 |
-| initiation_length | 100000 |
-| weights_clip | 5 |
-| warmup_steps | 100 |
-| update_steps | 10 |
+| $baselineInput$ | 0.2 |
+| $Nneuron$ | 30 |
+| $Nparent$ | 16 |
+| $Nchildren$ | 256 |
+| $initiationLength$ | 100000 |
+| $weightsClip$ | 5 |
+| $warmupSteps$ | 100 |
+| $updateSteps$ | 10 |
 
