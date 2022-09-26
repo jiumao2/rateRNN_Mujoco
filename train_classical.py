@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     continue_training = True
     if continue_training:
-        checkpoint = utils.load_pickle('./results/InvertedDoublePendulum-v4_20220925_200253/InvertedDoublePendulum-v4_checkpoint_iter521.pickle')
+        checkpoint = utils.load_pickle('./results/InvertedDoublePendulum-v4_20220925_200253/InvertedDoublePendulum-v4_checkpoint_iter1741.pickle')
         env_name = checkpoint['env_name']
         log_dir = checkpoint['log_dir']
         obs_mean = checkpoint['obs_mean']

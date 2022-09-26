@@ -8,7 +8,7 @@ def get_hyperparams():
     config['dt'] = 0.001  # in seconds
     config['dt_env'] = 0.01  # in seconds
     config['baseline_input'] = 0.2  # in seconds
-    config['initiation_length'] = 10000
+    config['initiation_length'] = 100000
     config['min_reward_init'] = 3000
     config['weights_clip'] = 5
     config['warmup_steps'] = 100
