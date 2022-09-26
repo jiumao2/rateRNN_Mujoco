@@ -7,7 +7,9 @@
 ## Neuron model
 ![](doc/rateRNN.jpg)
 $$ \tau \dot{\boldsymbol{x}} = -\boldsymbol{x}+W\boldsymbol{r}+\mathrm{Input}$$  
-$$ \boldsymbol{r} = \frac{1}{1+e^{-\boldsymbol{x}}}$$
+
+$$ \boldsymbol{r} = \frac{1}{1+e^{-\boldsymbol{x}}}$$  
+
 
 ## Algorithm
 for $g=1,2,...,G$ generations:  
