@@ -4,12 +4,12 @@
 - Tiny network
 - Faster than most existing algorithms
 - Work well on making periodic movement such as "Inverted Pendulum", "Swimmer", "Hopper", "Ant", "Half Cheetah" and "Walker2D". Work bad on controlling problems such as "Reacher", "Inverted Double Pendulum" and "Humanoid".
-## Neuron model
-![](doc/rateRNN.jpg)
+## Neuron model  
+![](doc/rateRNN.jpg)  
+
 $$ \tau \dot{\boldsymbol{x}} = -\boldsymbol{x}+W\boldsymbol{r}+\mathrm{Input}$$  
 
 $$ \boldsymbol{r} = \frac{1}{1+e^{-\boldsymbol{x}}}$$  
-
 
 ## Algorithm
 for $g=1,2,...,G$ generations:  
