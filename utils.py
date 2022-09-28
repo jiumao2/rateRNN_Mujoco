@@ -22,15 +22,17 @@ def make_random_weights(n_neuron, n_axis3=0):
     else:
         return (np.random.rand(n_neuron, n_neuron, n_axis3) - 0.5) * 2
 
-def make_random_weights_mlp(obs_dim,num_hidden_units, act_dim):
-    return (np.random.rand(obs_dim*num_hidden_units+num_hidden_units+num_hidden_units*act_dim)-0.5)*2
 
-def save_checkpoint(dir_name, iter=None, env_name=None, weights=None, params=None, obs_mean=None, obs_std=None, weights_parent=None, weights_children=None, weights_mlp=None):
+def make_random_weights_mlp(obs_dim, num_hidden_units, act_dim):
+    return (np.random.rand(obs_dim * num_hidden_units + num_hidden_units + num_hidden_units * act_dim) - 0.5) * 2
+
+
+def save_checkpoint(dir_name, iter=None, env_name=None, weights=None, params=None, obs_mean=None, obs_std=None,
+                    weights_parent=None, weights_children=None):
     result = dict()
     result["iteration"] = iter
     result["env_name"] = env_name
     result["weights"] = weights
-    result["weights_mlp"] = weights_mlp
     result["params"] = params
     result["obs_mean"] = obs_mean
     result["obs_std"] = obs_std
@@ -38,11 +40,11 @@ def save_checkpoint(dir_name, iter=None, env_name=None, weights=None, params=Non
     result["weights_children"] = weights_children
     result["log_dir"] = dir_name
 
-    filename = dir_name + env_name + "_checkpoint_iter"+str(iter)+".pickle"
+    filename = dir_name + env_name + "_checkpoint_iter" + str(iter) + ".pickle"
     with open(filename, 'wb') as f:
         pickle.dump(result, f)
 
-    print("Save checkpoint at iteration "+str(iter)+' into "'+filename+'"!')
+    print("Save checkpoint at iteration " + str(iter) + ' into "' + filename + '"!')
     return result
 
 
@@ -52,8 +54,10 @@ def load_pickle(filename):
 
     return data
 
+
 def update_log(filename, iter, mean_reward, max_reward, min_reward, mean_length, max_length, min_length):
-    names = ["iter","mean_reward","max_reward","min_reward","mean_episode_length","max_episode_length","min_episode_length"]
+    names = ["iter", "mean_reward", "max_reward", "min_reward", "mean_episode_length", "max_episode_length",
+             "min_episode_length"]
     if not os.path.isfile(filename):
         result = dict()
         result["iter"] = [iter]
@@ -68,7 +72,7 @@ def update_log(filename, iter, mean_reward, max_reward, min_reward, mean_length,
 
         if result["iter"][-1] >= iter:
             for name in names:
-                result[name] = result[name][:iter-1]
+                result[name] = result[name][:iter - 1]
 
         result["iter"].append(iter)
         result["mean_reward"].append(mean_reward)
@@ -82,6 +86,7 @@ def update_log(filename, iter, mean_reward, max_reward, min_reward, mean_length,
         pickle.dump(result, f)
 
     return result
+
 
 def visualize_log(filename):
     data = load_pickle(filename)
