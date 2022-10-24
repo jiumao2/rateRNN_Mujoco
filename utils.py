@@ -23,8 +23,8 @@ def make_random_weights(n_neuron, n_axis3=0):
         return (np.random.rand(n_neuron, n_neuron, n_axis3) - 0.5) * 2
 
 
-def make_random_weights_mlp(obs_dim, num_hidden_units, act_dim):
-    return (np.random.rand(obs_dim * num_hidden_units + num_hidden_units + num_hidden_units * act_dim) - 0.5) * 2
+def make_random_weights_simple(obs_dim, act_dim):
+    return (np.random.rand(obs_dim * (act_dim+1)) - 0.5) * 2
 
 
 def save_checkpoint(dir_name, iter=None, env_name=None, weights=None, params=None, obs_mean=None, obs_std=None,
